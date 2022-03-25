@@ -34,14 +34,14 @@ export function ModalFilm(openF:any) {
 
   useEffect(() => {
     console.log('changement');
+    // Ca marchais avant mais c'est je sais pas pourquoi il me stoppe l'excution maintenant
+    // fetch('https://api.themoviedb.org/3/movie/'+openF.id+'/similar?api_key=' +process.env.REACT_APP_API_KEY+ '&language=en-US&page=1')
+    // .then( response => 
+    //     response.json())
+    // .then(
+    //      data => {console.log(data.results); setFilmSim(data.results)}
+    //     ); 
 
-    fetch('https://api.themoviedb.org/3/movie/'+openF.id+'/similar?api_key=' +process.env.REACT_APP_API_KEY+ '&language=en-US&page=1')
-    .then( response => 
-        response.json())
-    .then(
-         data => {console.log(data.results); setFilmSim(data.results)}
-        ); 
-    
     fetch('https://api.themoviedb.org/3/movie/'+openF.id+'?api_key=' +process.env.REACT_APP_API_KEY+ '&language=en-US')
               .then( response => 
                   response.json())
@@ -129,16 +129,16 @@ export function ModalFilm(openF:any) {
                 <Box sx={{ flexGrow: 1 }}>
                 <Grid container spacing={2}>
                   <Grid item xs={4}>
-                  {
+                     {/* En corrélation avec le fetch qui ne marche pas */}
+                  {/* {
                     
                     filmSim.map(({backdrop_path }:any) =>{
                   
-                      
                        <Box sx={{
                       height:220, width:200, borderColor: 'white', border:1 , backgroundImage: `url(${"https://image.tmdb.org/t/p/w500"+backdrop_path})`, margin: 0
                         }}/>
                     })
-                  }
+                  } */}
                   </Grid>
                 </Grid>
                 </Box>

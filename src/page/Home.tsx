@@ -3,6 +3,7 @@ import SearchAppBar from "../content/navbar"
 import {Box, Button, Stack, Typography} from '@mui/material';
 import InfoIcon from '@mui/icons-material/Info';
 import  SectionByType  from '../content/SectionByType'
+import { ModalFilm } from "../content/ModalFilm";
 
 
 
@@ -23,6 +24,7 @@ function Home(filmList:any) {
     
     return( 
         <div>
+            <ModalFilm openF={open} id={filmList.listFilm[0].id} handleClose={handleClose} listFilm={filmList.listFilm}/>
             <SearchAppBar/> 
             <Box height="85vh" display="flex" flexDirection="column" sx={{backgroundImage: `url(${"https://image.tmdb.org/t/p/original"+filmList.listFilm[0].backdrop_path})`,} } >
             <Box flex={1} overflow="auto">
