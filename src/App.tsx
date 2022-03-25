@@ -15,6 +15,8 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
+import { useState } from "react";
+import { useEffect } from "react";
 
 const theme = createTheme({
     palette: {
@@ -24,6 +26,16 @@ const theme = createTheme({
   
 
 function App() {
+  const [essaieFilm,setFilm] = useState();
+  useEffect(() => {
+    fetch('https://api.themoviedb.org/3/movie/popular?api_key=' +process.env.REACT_APP_API_KEY+ '&language=en-US&page=1')
+              .then( response => 
+                  response.json()).then(
+                      data => setFilm(data.results)
+                  )
+              ; 
+  },[])
+
     return(
         <ThemeProvider theme={theme}>
         <Provider store={Store}>
@@ -33,7 +45,7 @@ function App() {
  
         <Routes>
           <Route path="/" element={<Login/>}/>
-          <Route path="/home" element={<Home/>}/>
+          <Route path="/home" element={<Home listFilm={essaieFilm} />}/>
           <Route path="/mylist" element={<MyList/>}/>
           <Route path="/who-watch" element={<Wwatch/>}/>
           

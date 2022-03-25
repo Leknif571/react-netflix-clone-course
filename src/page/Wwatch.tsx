@@ -2,11 +2,29 @@ import { Container, Box, Stack, Typography } from "@mui/material";
 import { Button } from '@mui/material';
 import AddCircleOutlinedIcon from '@mui/icons-material/AddCircleOutlined';
 import {Link} from 'react-router-dom';
+import { Store } from '../Store/store';
+import { useSelector } from 'react-redux';
+import * as React from "react";
+import ModalNewUser from "../content/ModalNewUser";
+import ModalManageProfile from "../content/ModalManageProfile";
+
+interface Profile{
+    id: number,
+    nomProf: string,
+    imgProf: string,
+}
 
 function Wwatch() { 
+    const profile = useSelector((store:any) => store.whowatchred);
+
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+
     return(
     
-    <Container>       
+    <Container>   
+        <ModalNewUser openNew={open} handleClose={handleClose}/>    
         <Box
                component="img"
                sx={{
@@ -34,45 +52,34 @@ function Wwatch() {
                         <Box></Box>
                         <Stack direction="row" spacing={6}>
 
-                        <Link to="/home">
+                    {profile.map(
+                        ({id, nomProf, imgProf}:Profile) => 
+                        <React.Fragment key={id}>
+                          <Link to="/home">
                             <Box>
-                                <img className="imgProfil"src="https://www.leparisien.fr/resizer/mtyH_ZTbgSlgjP81wWXhAfWtyD0=/932x582/cloudfront-eu-central-1.images.arcpublishing.com/leparisien/Q6MTNENGOZGU3BR5OUEO2GNMOI.jpg" alt="" />
-                                <label>GnK-Majestik-0day</label>
+                                <img className="imgProfil" src={imgProf} alt={imgProf} />
+                                <label>{nomProf}</label>
                             </Box>
-                        </Link>
-
-                        <Link to="/home">
-                            <Box>
-                                <img className="imgProfil"src="https://www.leparisien.fr/resizer/mtyH_ZTbgSlgjP81wWXhAfWtyD0=/932x582/cloudfront-eu-central-1.images.arcpublishing.com/leparisien/Q6MTNENGOZGU3BR5OUEO2GNMOI.jpg" alt="" />
-                                <label>Eros des rasa</label>
-                            </Box>
-                        </Link>
-
-                        <Link to="/home">
-                            <Box>
-                                <img className="imgProfil"src="https://www.leparisien.fr/resizer/mtyH_ZTbgSlgjP81wWXhAfWtyD0=/932x582/cloudfront-eu-central-1.images.arcpublishing.com/leparisien/Q6MTNENGOZGU3BR5OUEO2GNMOI.jpg" alt="" />
-                                <label>Eros des rasa</label>
-                            </Box>
-                        </Link>
+                         </Link>
+                        </React.Fragment>
                      
+                    
+                       
+                    )}
+                       
 
 
-                        <Box>
+                        <Box onClick={handleOpen}>
                             <AddCircleOutlinedIcon sx={{ fontSize: 150, color: 'gray' }}></AddCircleOutlinedIcon>
                             <label>Add profiles</label>
                         </Box>
 
 
                         </Stack>
-                        <Box sx={{ borderColor: 'white', border:1,textAlign:'center' }}>
-                        <Button variant='contained' fullWidth sx={{
-                                background: "transparent",
-                                color: 'white',
-    
-                            
-                            }}>Manage profile</Button>
-                            </Box>
+                    
                     </Stack>
+
+                    <ModalManageProfile/> 
                     </Box>
                 </Box>
    </Container>

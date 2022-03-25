@@ -30,3 +30,22 @@ code {
   height: 85px;
   width: auto;
 }
+
+.mainFilmTitle{
+  position: absolute;
+  top: 35%;
+  left: 2%;
+  font-weight: bold;
+  font-size: 90px;
+  font-family: cursive;
+}
+
+.overf{
+  display: flex;
+  overflow-x: auto;
+}
+
+.overfY{
+  display: flex;
+  overflow-y: auto;
+}

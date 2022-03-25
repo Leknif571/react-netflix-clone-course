@@ -1,16 +1,14 @@
 import * as React from "react";
-import { useState } from "react";
-import Box from "@mui/material/Box";
+import { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import InfoIcon from '@mui/icons-material/Info';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
-import { TextField, InputLabel, Stack } from "@mui/material";
+import { TextField, Grid, Stack, Box } from "@mui/material";
 import ThumbDownAltIcon from '@mui/icons-material/ThumbDownAlt';
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
-import { positions } from "@mui/system";
+
 
 
 const style = {
@@ -30,16 +28,35 @@ const style = {
 
 
 export function ModalFilm(openF:any) {
-  // const [open, setOpen] = React.useState(openF.openF);
-  // const handleClose = () => setOpen(false);
-  // const handleOpen = () => setOpen(openF);
+
+  const [filmById,setFilm] = useState<any[]>([null]);
+  const [filmSim,setFilmSim] = useState<any[]>([null]);
+
+  useEffect(() => {
+    console.log('changement');
+
+    fetch('https://api.themoviedb.org/3/movie/'+openF.id+'/similar?api_key=' +process.env.REACT_APP_API_KEY+ '&language=en-US&page=1')
+    .then( response => 
+        response.json())
+    .then(
+         data => {console.log(data.results); setFilmSim(data.results)}
+        ); 
+    
+    fetch('https://api.themoviedb.org/3/movie/'+openF.id+'?api_key=' +process.env.REACT_APP_API_KEY+ '&language=en-US')
+              .then( response => 
+                  response.json())
+              .then(
+                   data => setFilm(data)
+                  ); 
+
+      },[openF.id])
+ 
+      console.log(filmSim);
   
-console.log(openF.openF);
   
   return (
       
     <div>
-      {/* <Button onClick={handleOpen} variant="contained" color={"success"} fullWidth>New list</Button> */}
       <Modal
         open={openF.openF}
         onClose={openF.handleClose}
@@ -54,13 +71,14 @@ console.log(openF.openF);
         }
       >
         <Box sx={style}>
-        <Box height="400px" display="flex" flexDirection="column" sx={{backgroundColor: 'red', margin: 0} } >
+        <Box height="400px" display="flex" flexDirection="column" sx={{backgroundImage: `url(${"https://image.tmdb.org/t/p/w780"+Object.values(filmById)[1]})`, margin: 0} } >
             <Box flex={1} overflow="auto">
                 <Stack direction="row" spacing={2} sx={{
                     position: 'absolute',
                     top: '50%',
                     left: '1%'
                 }}>
+
                     <Button variant='contained' sx={{
                                 background: "white",
                                 height: 40,
@@ -81,26 +99,24 @@ console.log(openF.openF);
                 <Stack direction="row" >
                   <Box sx={{width:"55%"}}>
                   <Typography id="modal-modal-title">
-                    Date Age Durée Qualité
+                  {Object.values(filmById)[15]} {Object.values(filmById)[17]} minutes  HD
                   </Typography>
 
                   <Typography>
-                    Description llllllllllllllllllllllllllllllllllllllllllllllllllllllllllll
-                    lllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll
-                    lllllllllllllllllllllllllllllllllllllllllllllllllllllllllll
+                    Description: {Object.values(filmById)[10]}
                   </Typography>
                   </Box>
 
                   <Box>
                     <Stack>
                       <Typography>
-                      Distribution
+                      Distribution :  {Object.values(filmById)[13]?.map(({name}:any)=> { return name})}
                     </Typography>
                     <Typography>
-                      Genre
+                      Genre : {Object.values(filmById)[4]?.map(({name}:any)=> { return name})}
                     </Typography>
                     <Typography>
-                      Ce Film est
+                      Ce Film est: {Object.values(filmById)[4]?.map(({name}:any)=> { return name})}
                     </Typography>
                     </Stack> 
                   </Box>
@@ -109,30 +125,25 @@ console.log(openF.openF);
                 <Typography id="modal-modal-title" variant="h6" component="h2">
                 Titre similaire
                 </Typography>
-                
-                <Stack direction={'row'} spacing={2}>
-                    <Box sx={{
-                      height:220, width:200, borderColor: 'white', border:1
-                    }}/>
-                    <Box sx={{
-                      height:220, width:200, borderColor: 'white', border:1
-                    }}/>
-                    <Box sx={{
-                      height:220, width:210, borderColor: 'white', border:1
-                    }}/>
-                </Stack>
-                <Stack direction={'row'} spacing={2}>
-                    <Box sx={{
-                      height:220, width:200, borderColor: 'white', border:1
-                    }}/>
-                    <Box sx={{
-                      height:220, width:200, borderColor: 'white', border:1
-                    }}/>
-                    <Box sx={{
-                      height:220, width:210, borderColor: 'white', border:1
-                    }}/>
-                </Stack>
-                
+
+                <Box sx={{ flexGrow: 1 }}>
+                <Grid container spacing={2}>
+                  <Grid item xs={4}>
+                  {
+                    
+                    filmSim.map(({backdrop_path }:any) =>{
+                  
+                      
+                       <Box sx={{
+                      height:220, width:200, borderColor: 'white', border:1 , backgroundImage: `url(${"https://image.tmdb.org/t/p/w500"+backdrop_path})`, margin: 0
+                        }}/>
+                    })
+                  }
+                  </Grid>
+                </Grid>
+                </Box>
+
+               
 
               </Stack>
 

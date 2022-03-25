@@ -23,7 +23,7 @@ const style = {
   border: "2px solid #000",
   borderRadius: 3,
   boxShadow: 24,
-
+ 
 };
 
 

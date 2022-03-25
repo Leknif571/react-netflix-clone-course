@@ -1,66 +1,40 @@
 // const Card = [{id:0, title:'card1', description:"description1",pos:1 },{id:1, title:'card1', description:"description1",pos:1 }]
-const Liste = [{title:'Liste 1', card:[], id:0}];
+const Profile = [{id:0, nomProf: "GnK-Majestik", imgProf:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfxpeAeZpaQE9R5IW2_6chgNY4cUHra4QlsQ&usqp=CAU'},{id:1, nomProf: "Ero des rasa", imgProf:'https://m.media-amazon.com/images/M/MV5BNzE2ODNlNDEtNWYxZS00OWY5LTgzMzAtYzcwZmEyOGUzMTliXkEyXkFqcGdeQVRoaXJkUGFydHlJbmdlc3Rpb25Xb3JrZmxvdw@@._V1_.jpg'}];
 
+export const Add_watch_action = "Add_watch_action";
+export const Delete_profile_action = "Delete_profile_action";
+export const Edit_profile_action = "Edit_profile_action";
 
-export const Add_list_action = "Add_list_action";
-export const Add_card_action = "Add_card_action";
-export const Delete_list_action = "Delete_list_action";
-export const Delete_card_action = "Delete_card_action";
-export const Move = "Move";
-
-
-interface Card{
+interface Profile{
     id: number,
-    title: String,
-    description: String,
-    pos: number,
-}
-interface list{
-    title:String,
-    card: Array<Card>,
-    id: number,
+    nomProf: string,
+    imgProf: string,
 }
 
 
-export function whosWatchReducer(state:Array<list> = Liste, action:any){
+
+export function whosWatchReducer(state:Array<Profile> = Profile, action:any){
 
     switch(action.type){
-        case Add_list_action:
-   
+
+        case Add_watch_action:
             return [...state,{...action.payload, id:(state.length-1)+1,} ]
 
-        case Delete_list_action:
-            return [...state,{...action.payload, id:state.length+1,} ]
+        case Delete_profile_action:   
+            let newArrayD = state.slice();
+            newArrayD = newArrayD.filter((element:Profile) => element.id !== action.payload);
+            return newArrayD
 
-        case Move:
-            let newArrayM = state.slice();
-            let id = 0;
-            let cardMem = newArrayM[action.source].card.filter((element:Card) => element.id == action.idCard);
-            newArrayM[action.source].card = newArrayM[action.source].card.filter((element:Card) => element.id != action.idCard);
-            // newArrayM[action.destination].card.map((e:list)=>{
-            //     id++;
-            //     e.id = id;
-            // } )
-            // cardMem[0].id = newArrayM[action.destination].card.length;
-            newArrayM[action.destination].card = [...newArrayM[action.destination].card, cardMem[0]];
+        case Edit_profile_action:
+            let objIndex = state.findIndex((obj:Profile) => obj.id == action.payload.id);
+            let newArrayU = state.slice();
             
-            return newArrayM;
-    
-        case Add_card_action:   
+            newArrayU[objIndex].nomProf =  action.payload.nomProf;
+            newArrayU[objIndex].imgProf =  action.payload.imgProf;
+            return newArrayU
 
-        let newArray = state.slice()
-        newArray[action.index].card.splice(0, 0, action.payload)
-        return newArray
-
-        case Delete_card_action:   
-        let newArrayD = state.slice();
-        newArrayD[action.index].card = newArrayD[action.index].card.filter((element:Card) => element.id !== action.payload);
-        // newArrayD[action.index].card.slice(0,action.payload).concat(newArrayD[action.index].card.slice(action.payload+1))
-        // newArrayD[action.index].card.splice(action.payload);
-        return newArrayD
-
-
-        default:
+        default: 
             return state
+
         } 
 }
