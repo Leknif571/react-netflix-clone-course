@@ -2,6 +2,48 @@
 
 # react-netflix-clone-course
 
+
+
+
+
+
+### Je n'ai pas eu le temps pour...
+    -Faire la page recherche
+    -Faire l'ajout dans MyList
+    -Récupérer liste de série et terminer la modal série
+
+### Les erreurs potentielles que je n'ai pas compris actuellement
+    -Mes données appeler par fetch et dans des useEffect ne se charge pas 
+    -Quand je rafraichis les pages mes données se casse 
+        -J'avais commencer a charger les film via redux, ca me faisais cette erreur,
+        j'ai donc essayer de faire les fetch en dur mais toujours la même erreurs.
+
+### Les Difficultés
+    -Le temps/ en plus de gérer d'autre projet (j'était un peu en retard ^^')
+
+### Dans l'ensemble
+    -C'était un bon projet, qui ma permis d'apprendre un peu plus sur react et de m'améliorer 
+    même si il me manque encore certaine connaissance que j'aimerais approfondir prochainement
+
+
+
+
+```
+
+---------------------------------------------------------------
+ _______    ______   __    __  __    __   ______   _______    ______  
+|       \  /      \ |  \  |  \|  \  /  \ /      \ |       \  /      \ 
+| $$$$$$$\|  $$$$$$\| $$  | $$| $$ /  $$|  $$$$$$\| $$$$$$$\|  $$$$$$\
+| $$__/ $$| $$  | $$| $$  | $$| $$/  $$ | $$__| $$| $$  | $$| $$__| $$
+| $$    $$| $$  | $$| $$  | $$| $$  $$  | $$    $$| $$  | $$| $$    $$
+| $$$$$$$\| $$  | $$| $$  | $$| $$$$$\  | $$$$$$$$| $$  | $$| $$$$$$$$
+| $$__/ $$| $$__/ $$| $$__/ $$| $$ \$$\ | $$  | $$| $$__/ $$| $$  | $$
+| $$    $$ \$$    $$ \$$    $$| $$  \$$\| $$  | $$| $$    $$| $$  | $$
+ \$$$$$$$   \$$$$$$   \$$$$$$  \$$   \$$ \$$   \$$ \$$$$$$$  \$$   \$$
+                                                                      
+---------------------------------------------------------------
+```
+
 ## Features
 
 -   Login
@@ -55,22 +97,3 @@ You have to use MUI lib to build your interfaces.
 ![](Assets/serieEpList.png)
 ![](Assets/topshows.png)
 ![](Assets/whoswatching.png)
-
-
-### Je n'ai pas eu le temps pour...
-    -Faire la page recherche
-    -Faire l'ajout dans MyList
-    -Récupérer liste de série et terminer la modal série
-
-### Les erreurs potentielles que je n'ai pas compris actuellement
-    -Mes données appeler par fetch et dans des useEffect ne se charge pas 
-    -Quand je rafraichis les pages mes données se casse 
-        -J'avais commencer a charger les film via redux, ca me faisais cette erreur,
-        j'ai donc essayer de faire les fetch en dur mais toujours la même erreurs.
-
-### Les Difficultés
-    -Le temps/ en plus de gérer d'autre projet (j'était un peu en retard ^^')
-
-### Dans l'ensemble
-    -C'était un bon projet, qui ma permis d'apprendre un peu plus sur react et de m'améliorer 
-    même si il me manque encore certaine connaissance que j'aimerais approfondir prochainement
